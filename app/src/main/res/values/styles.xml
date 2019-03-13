@@ -1,0 +1,52 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="colorControlActivated">@color/colorPrimary</item>
+
+        <item name="md_color_title">@color/color_black</item>
+        <item name="md_color_content">@color/color_black_almost</item>
+        <!--<item name="android:progressBarStyle">@style/ProgressBarTheme.White</item>-->
+    </style>
+
+    <style name="MainButtons">
+        <item name="android:layout_width">192dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="layout_constraintDimensionRatio">W,1:1</item>
+        <item name="layout_constraintLeft_toLeftOf">parent</item>
+        <item name="layout_constraintRight_toRightOf">parent</item>
+    </style>
+
+    <style name="Text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="Text.H1">
+        <item name="android:textSize">20dp</item>
+    </style>
+
+    <style name="ToolbarTitle" parent="Text.H1">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/color_white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="layout_constraintBottom_toBottomOf">@+id/top</item>
+        <item name="layout_constraintLeft_toLeftOf">parent</item>
+        <item name="layout_constraintRight_toRightOf">parent</item>
+        <item name="layout_constraintTop_toTopOf">@+id/top</item>
+    </style>
+
+    <style name="HintText">
+        <item name="android:textSize">14dp</item>
+        <item name="android:textColor">@color/color_black_almost</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+</resources>

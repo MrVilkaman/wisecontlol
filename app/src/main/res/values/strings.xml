@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Wise Contlol</string>
+    <string name="tasks">Задачи</string>
+    <string name="categories">Категории</string>
+    <string name="category">Категория:</string>
+    <string name="edit">Изменить</string>
+</resources>
