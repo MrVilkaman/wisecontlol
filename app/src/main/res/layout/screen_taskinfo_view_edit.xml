@@ -15,21 +15,20 @@
 
     <TextView
         style="@style/ToolbarTitle"
-        android:text="Задача №1"
+        android:text="@string/task_edit_title"
         tools:ignore="MissingConstraints"/>
 
     <ImageButton
         android:id="@+id/close"
         android:layout_width="48dp"
-        android:layout_height="0dp"
+        android:layout_height="56dp"
         android:background="@null"
         android:padding="16dp"
         android:src="@drawable/ic_close"
-        app:layout_constraintBottom_toBottomOf="@+id/top"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/top"/>
+        />
 
     <ImageButton
+        android:id="@+id/task_save"
         android:layout_width="48dp"
         android:layout_height="0dp"
         android:background="@null"
@@ -45,87 +44,89 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/top">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:orientation="vertical">
 
-            <FrameLayout
-                android:layout_width="match_parent"
+
+            <TextView
+                android:id="@+id/task_title"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp">
+                android:layout_marginTop="16dp"
+                android:textSize="@dimen/text_font_size"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/name_edit"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Заголовок Заголовок Заголовок Заголовок Заголовок Заголовок"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|left"
-                    android:text="Заголовок"
-                    android:textSize="@dimen/text_font_size"/>
+            <TextView
+                android:id="@+id/name_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:text="@string/edit"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_font_size"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
-                <TextView
-                    android:id="@+id/name_edit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:padding="16dp"
-                    android:text="@string/edit"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/text_font_size"/>
-            </FrameLayout>
 
             <EditText
                 android:id="@+id/task_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis metus imperdiet, placerat libero quis, viverra orci. Pellentesque eu libero eget massa luctus eleifend a ac libero. Nullam vel interdum sem. Maecenas ultricies augue dapibus sem aliquam, semper tempus mi malesuada."
+                tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis metus imperdiet, placerat libero quis, viverra orci. Pellentesque eu libero eget massa luctus eleifend a ac libero. Nullam vel interdum sem. Maecenas ultricies augue dapibus sem aliquam, semper tempus mi malesuada."
                 android:textColor="@color/color_black"
-                android:textSize="@dimen/text_font_size"/>
+                android:textSize="@dimen/text_font_size"
+                app:layout_constraintTop_toBottomOf="@+id/task_title"/>
 
 
             <TextView
+                android:id="@+id/textView"
                 style="@style/HintText"
-                android:layout_marginLeft="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="@string/category"
+                app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/task_content"/>
 
             <AutoCompleteTextView
+                android:id="@+id/autoCompleteTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
                 android:drawableRight="@android:drawable/arrow_down_float"
                 android:text="Разное"
-                app:layout_constraintTop_toBottomOf="@+id/task_content"/>
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView"/>
 
-            <FrameLayout
-                android:layout_width="match_parent"
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="16dp">
+                android:text="Начало 12 марта в 17:00"
+                android:textSize="@dimen/text_font_size"
+                app:layout_constraintBottom_toBottomOf="@+id/edit_start_date_dialog"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/edit_start_date_dialog"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|left"
-                    android:text="Начало 12 марта в 17:00"
-                    android:textSize="@dimen/text_font_size"/>
+            <TextView
+                android:id="@+id/edit_start_date_dialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:text="@string/edit"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_font_size"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/autoCompleteTextView"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:padding="16dp"
-                    android:text="@string/edit"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/text_font_size"/>
-            </FrameLayout>
-
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
 

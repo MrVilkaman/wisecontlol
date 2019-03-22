@@ -15,7 +15,7 @@ import javax.inject.Inject
 @InjectViewState
 @FragmentScope
 class TasksPresenter @Inject constructor(
-    private val db: WiseDatabase
+        private val db: WiseDatabase
 ) : BasePresenter<TasksView>() {
 
     override fun onFirstViewAttach() {
@@ -30,6 +30,6 @@ class TasksPresenter @Inject constructor(
     }
 
     fun onClickTask(value: TaskEntity) {
-        router.navigateTo(TaskInfoScreen)
+        router.navigateTo(TaskInfoScreen(value.id))
     }
 }

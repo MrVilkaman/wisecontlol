@@ -12,4 +12,6 @@ class TaskEntity {
 
     var title: String = ""
 
+    var description: String = ""
+
 }

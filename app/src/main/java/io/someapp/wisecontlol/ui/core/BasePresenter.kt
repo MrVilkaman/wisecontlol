@@ -6,7 +6,7 @@ import com.arellomobile.mvp.MvpView
 import io.someapp.wisecontlol.ui.navigation.WiseRouter
 import io.someapp.wisecontlol.ui.utils.BackButtonListener
 import kotlinx.coroutines.*
-import ru.reglek.checkpoint.ui.utils.TextFormatter
+import io.someapp.wisecontlol.ui.utils.TextFormatter
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 

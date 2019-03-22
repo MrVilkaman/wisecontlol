@@ -5,8 +5,8 @@ import dagger.Module
 import dagger.Provides
 import io.someapp.wisecontlol.data.WisePreference
 import io.someapp.wisecontlol.data.WisePreferenceImpl
-import ru.reglek.checkpoint.ui.utils.TextFormatter
-import ru.reglek.checkpoint.ui.utils.TextFormatterImpl
+import io.someapp.wisecontlol.ui.utils.TextFormatter
+import io.someapp.wisecontlol.ui.utils.TextFormatterImpl
 import javax.inject.Singleton
 
 

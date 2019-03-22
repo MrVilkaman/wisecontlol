@@ -1,4 +1,4 @@
-package ru.reglek.checkpoint.ui.utils
+package io.someapp.wisecontlol.ui.utils
 
 import android.content.Context
 import androidx.annotation.StringRes

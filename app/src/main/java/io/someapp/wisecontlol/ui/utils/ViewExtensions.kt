@@ -1,10 +1,11 @@
-package ru.reglek.checkpoint.ui.utils
+package io.someapp.wisecontlol.ui.utils
 
 import android.app.Activity
 import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.TextView
 import androidx.core.view.isVisible
 
 
@@ -23,6 +24,7 @@ fun EditText.showKeyboard() {
     }
 }
 
+fun TextView.asString(): String = text?.toString() ?: ""
 
 fun View.switchVisibility() {
     showView(!isVisible)

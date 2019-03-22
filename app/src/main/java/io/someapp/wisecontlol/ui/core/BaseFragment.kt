@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.CallSuper
 import androidx.annotation.StringRes
+import androidx.fragment.app.Fragment
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.MvpView
 import dagger.android.support.AndroidSupportInjection
@@ -59,5 +60,14 @@ abstract class BaseFragment<P : BasePresenter<*>> : MvpAppCompatFragment(), Back
 
     fun showToast(@StringRes text: Int) {
         showToast(getString(text))
+    }
+}
+
+
+inline fun <F : Fragment> F.withParam(block: Bundle.() -> Unit): F {
+    return this.apply {
+        this.arguments = Bundle().apply {
+            block.invoke(this)
+        }
     }
 }
