@@ -19,4 +19,7 @@
     <string name="task_title_request">Нужно дать название задаче!</string>
     <string name="start_date">Начало: %s</string>
 
+    <string name="send_success">Отправлено успешно!</string>
+    <string name="send_error">Не удалось отпраить sms =( </string>
+
 </resources>

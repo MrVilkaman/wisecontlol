@@ -8,6 +8,7 @@ import io.someapp.wisecontlol.di.SomeId
 import io.someapp.wisecontlol.domain.CategoryInteractor
 import io.someapp.wisecontlol.domain.TaskInteractor
 import io.someapp.wisecontlol.ui.core.BasePresenter
+import io.someapp.wisecontlol.ui.screen.smssender.SmsSenderScreen
 import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
@@ -96,5 +97,6 @@ class TaskInfoPresenter @Inject constructor(
     }
 
     fun onClickSend() {
+        router.navigateTo(SmsSenderScreen(taskId!!))
     }
 }
