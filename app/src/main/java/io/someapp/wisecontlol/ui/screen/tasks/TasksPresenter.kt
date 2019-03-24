@@ -1,9 +1,9 @@
 package io.someapp.wisecontlol.ui.screen.tasks
 
 import com.arellomobile.mvp.InjectViewState
-import io.someapp.wisecontlol.data.db.WiseDatabase
-import io.someapp.wisecontlol.data.tasks.TaskEntity
+import io.someapp.wisecontlol.data.tasks.TaskFullEntity
 import io.someapp.wisecontlol.di.FragmentScope
+import io.someapp.wisecontlol.domain.TaskInteractor
 import io.someapp.wisecontlol.ui.core.BasePresenter
 import io.someapp.wisecontlol.ui.screen.taskinfo.TaskInfoScreen
 import kotlinx.coroutines.Dispatchers
@@ -16,21 +16,34 @@ import javax.inject.Inject
 @FragmentScope
 class TasksPresenter @Inject constructor(
     private val param: TasksScreenParam,
-    private val db: WiseDatabase
+    private val taskInteractor: TaskInteractor
 ) : BasePresenter<TasksView>() {
 
-    override fun onFirstViewAttach() {
-        super.onFirstViewAttach()
+
+    override fun attachView(view: TasksView?) {
+        super.attachView(view)
 
         launch {
-            val list = withContext(Dispatchers.IO) { db.taskDao().getAll() }
-
+            val list = withContext(Dispatchers.IO) {
+                with(param) {
+                    if (categoryId == null) {
+                        taskInteractor.getAll()
+                    } else {
+                        taskInteractor.getAllInCategory(categoryId)
+                    }
+                }
+            }
             viewState.bindItems(list)
         }
-
     }
 
-    fun onClickTask(value: TaskEntity) {
-        router.navigateTo(TaskInfoScreen(value.id))
+    fun onClickTask(value: TaskFullEntity) {
+        router.navigateTo(TaskInfoScreen(value.task.id))
+    }
+
+    fun onCheckedTask(id: Long, newState: Boolean) {
+        launch {
+            taskInteractor.updateTaskState(id, newState)
+        }
     }
 }

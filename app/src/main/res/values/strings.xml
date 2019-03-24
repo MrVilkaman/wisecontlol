@@ -15,4 +15,8 @@
     <string name="category_added_done">Категория успешно добавлена!</string>
     <string name="close">Закрыть</string>
 
+    <string name="empty_category">Без категории</string>
+    <string name="task_title_request">Нужно дать название задаче!</string>
+    <string name="start_date">Начало: %s</string>
+
 </resources>

@@ -1,54 +1,65 @@
 package io.someapp.wisecontlol.ui.screen.taskinfo
 
 import com.arellomobile.mvp.InjectViewState
-import io.someapp.wisecontlol.data.db.WiseDatabase
-import io.someapp.wisecontlol.data.tasks.TaskEntity
+import io.someapp.wisecontlol.data.category.CategoryEntity
+import io.someapp.wisecontlol.data.tasks.TaskFullEntity
 import io.someapp.wisecontlol.di.FragmentScope
 import io.someapp.wisecontlol.di.SomeId
+import io.someapp.wisecontlol.domain.CategoryInteractor
+import io.someapp.wisecontlol.domain.TaskInteractor
 import io.someapp.wisecontlol.ui.core.BasePresenter
-import io.someapp.wisecontlol.ui.utils.withIO
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
 
 
 @InjectViewState
 @FragmentScope
 class TaskInfoPresenter @Inject constructor(
-        @SomeId private val taskId: Long?,
-        private val db: WiseDatabase
+    @SomeId private val taskId: Long?,
+    private val categoryInteractor: CategoryInteractor,
+    private val taskInteractor: TaskInteractor
 ) : BasePresenter<TaskInfoView>() {
 
-    private lateinit var currentTask: TaskEntity
+    private lateinit var currentTask: TaskFullEntity
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
 
         launch {
+
             currentTask = if (taskId == null) {
-                TaskEntity()
+                taskInteractor.createNew()
             } else {
-                withIO { db.taskDao().getById(taskId) }
+                taskInteractor.getTask(taskId)
             }
             viewState.updateUi(currentTask)
         }
     }
 
+    fun onClickCategories() = launch {
+        val list = categoryInteractor.getAllCategories()
+        viewState.showCategoriesChooseDialog(list)
+    }
+
     fun updateTitle(text: String) {
-        currentTask.title = text
+        currentTask.task.title = text
         viewState.updateUi(currentTask)
     }
 
     fun save(description: String) {
-        launch {
-            currentTask.description = description
+        if (currentTask.task.title.isBlank()) {
+            viewState.showTitleError()
+            return
+        }
 
-            val taskDao = db.taskDao()
-            withIO {
-                if (taskId == null) {
-                    taskDao.insert(currentTask)
-                } else {
-                    taskDao.update(currentTask)
-                }
+        launch {
+            currentTask.task.description = description
+
+            if (taskId == null) {
+                taskInteractor.insert(currentTask.task)
+            } else {
+                taskInteractor.update(currentTask.task)
             }
             router.exit()
         }
@@ -56,4 +67,14 @@ class TaskInfoPresenter @Inject constructor(
 
     fun close() = router.exit()
 
+    fun onClickCategory(value: CategoryEntity) {
+        currentTask.task.categoryId = value.id
+        currentTask.category = value
+        viewState.updateUi(currentTask)
+    }
+
+    fun updateStartDate(time: Date) {
+        currentTask.task.startDate = time
+        viewState.updateUi(currentTask)
+    }
 }

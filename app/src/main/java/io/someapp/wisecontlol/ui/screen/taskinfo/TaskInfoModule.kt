@@ -15,7 +15,7 @@ class TaskInfoModule {
     fun provideId(fragment: TaskInfoFragment): Long? {
         val arguments = fragment.arguments
         return if (arguments?.containsKey(TaskInfoScreen.KEY_ID) == true) {
-            arguments?.getLong(TaskInfoScreen.KEY_ID)
+            arguments.getLong(TaskInfoScreen.KEY_ID)
         } else {
             null
         }

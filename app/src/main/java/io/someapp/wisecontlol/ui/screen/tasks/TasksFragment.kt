@@ -6,9 +6,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.arellomobile.mvp.MvpView
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
+import com.arellomobile.mvp.viewstate.strategy.SkipStrategy
+import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import io.someapp.wisecontlol.R
 import io.someapp.wisecontlol.data.category.CategoryEntity
-import io.someapp.wisecontlol.data.tasks.TaskEntity
+import io.someapp.wisecontlol.data.tasks.TaskFullEntity
 import io.someapp.wisecontlol.di.FragmentScope
 import io.someapp.wisecontlol.ui.core.BaseFragment
 import io.someapp.wisecontlol.ui.core.ItemListener
@@ -37,8 +39,8 @@ class TasksFragment : BaseFragment<TasksPresenter>(), TasksView {
         recycler_view.layoutManager = LinearLayoutManager(context!!)
         recycler_view.adapter = adapter
 
-        adapter.onClick = object : ItemListener<TaskEntity> {
-            override fun click(value: TaskEntity) {
+        adapter.onClick = object : ItemListener<TaskFullEntity> {
+            override fun click(value: TaskFullEntity) {
                 presenter.onClickTask(value)
             }
         }
@@ -48,7 +50,7 @@ class TasksFragment : BaseFragment<TasksPresenter>(), TasksView {
         }
     }
 
-    override fun bindItems(list: List<TaskEntity>) {
+    override fun bindItems(list: List<TaskFullEntity>) {
         adapter.items = list
     }
 }
@@ -63,10 +65,11 @@ class TasksScreen(private val categoryEntity: CategoryEntity? = null) : SupportA
     }
 }
 
+@StateStrategyType(value = SkipStrategy::class)
 interface TasksView : MvpView {
-    fun bindItems(list: List<TaskEntity>)
+    fun bindItems(list: List<TaskFullEntity>)
 }
 
 data class TasksScreenParam(
-    private val categoryId: Long? = null
+    val categoryId: Long? = null
 )

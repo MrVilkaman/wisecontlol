@@ -6,11 +6,15 @@ import io.someapp.wisecontlol.data.category.CategoryEntity
 
 @Dao
 interface CategoryDao {
+    companion object {
+        const val EMPTY_CATEGORY = 1L
+    }
+
 
     @Query("SELECT * FROM CategoryEntity")
     fun getAll(): List<CategoryEntity>
 
-    @Query("SELECT * FROM CategoryEntity WHERE id = :id")
+    @Query("SELECT * FROM CategoryEntity WHERE categoryId = :id")
     fun getById(id: Long): CategoryEntity?
 
     @Insert
@@ -22,6 +26,6 @@ interface CategoryDao {
     @Delete
     fun delete(employee: CategoryEntity)
 
-    @Query("SELECT * FROM CategoryEntity WHERE title = :title")
+    @Query("SELECT * FROM CategoryEntity WHERE categoryTitle = :title")
     fun getByName(title: String): CategoryEntity?
 }

@@ -14,7 +14,6 @@ interface CategoryInteractor {
 
 class CategoryInteractorImpl @Inject constructor(
     private val db: WiseDatabase
-
 ) : CategoryInteractor {
     private val dao by lazy { db.categoryDao() }
 

@@ -2,18 +2,13 @@ package io.someapp.wisecontlol.data.tasks
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
+import io.someapp.wisecontlol.data.category.CategoryEntity
+import io.someapp.wisecontlol.data.db.convertor.DateConverter
+import java.util.*
 
 
-@Entity(
-//    foreignKeys = [
-//        ForeignKey(
-//            entity = CategoryEntity::class,
-//            parentColumns = ["id"],
-//            childColumns = ["categoryId"]
-//        )
-//    ]
-
-)
+@Entity
 class TaskEntity {
 
     @PrimaryKey(autoGenerate = true)
@@ -23,6 +18,16 @@ class TaskEntity {
 
     var description: String = ""
 
-//    var categoryId: Int = 0
+    var isDone: Boolean = false
 
+    @TypeConverters(DateConverter::class)
+    var startDate: Date? = null
+
+    var categoryId: Long? = null
 }
+
+
+data class TaskFullEntity(
+    var task: TaskEntity,
+    var category: CategoryEntity? = null
+)

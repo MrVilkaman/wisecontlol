@@ -80,11 +80,11 @@
                 android:id="@+id/task_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis metus imperdiet, placerat libero quis, viverra orci. Pellentesque eu libero eget massa luctus eleifend a ac libero. Nullam vel interdum sem. Maecenas ultricies augue dapibus sem aliquam, semper tempus mi malesuada."
+                android:hint="@string/task_content_hint"
                 android:textColor="@color/color_black"
                 android:textSize="@dimen/text_font_size"
-                android:hint="@string/task_content_hint"
-                app:layout_constraintTop_toBottomOf="@+id/task_title"/>
+                app:layout_constraintTop_toBottomOf="@+id/task_title"
+                tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis metus imperdiet, placerat libero quis, viverra orci. Pellentesque eu libero eget massa luctus eleifend a ac libero. Nullam vel interdum sem. Maecenas ultricies augue dapibus sem aliquam, semper tempus mi malesuada."/>
 
 
             <TextView
@@ -97,13 +97,16 @@
                 app:layout_constraintTop_toBottomOf="@+id/task_content"/>
 
             <AutoCompleteTextView
-                android:id="@+id/autoCompleteTextView"
+                android:id="@+id/category_selector"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:cursorVisible="false"
                 android:drawableRight="@android:drawable/arrow_down_float"
-                android:text="Разное"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView"/>
+                app:layout_constraintTop_toBottomOf="@+id/textView"
+                tools:text="Разное"/>
 
 
             <TextView
@@ -125,7 +128,7 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/text_font_size"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/autoCompleteTextView"/>
+                app:layout_constraintTop_toBottomOf="@+id/category_selector"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
