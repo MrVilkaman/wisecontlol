@@ -7,6 +7,7 @@ import io.someapp.wisecontlol.ui.screen.main.MainFragment
 import io.someapp.wisecontlol.ui.screen.taskinfo.TaskInfoFragment
 import io.someapp.wisecontlol.ui.screen.taskinfo.TaskInfoModule
 import io.someapp.wisecontlol.ui.screen.tasks.TasksFragment
+import io.someapp.wisecontlol.ui.screen.tasks.TasksModule
 
 @Module
 interface AppMainScreenModule {
@@ -16,7 +17,7 @@ interface AppMainScreenModule {
     fun provideMainFragment(): MainFragment
 
     @FragmentScope
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector(modules = [TasksModule::class])
     fun provideTasksFragment(): TasksFragment
 
     @FragmentScope

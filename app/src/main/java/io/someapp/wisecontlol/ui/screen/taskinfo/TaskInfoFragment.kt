@@ -3,6 +3,7 @@ package io.someapp.wisecontlol.ui.screen.taskinfo
 import android.os.Bundle
 import android.view.View
 import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.datetime.dateTimePicker
 import com.afollestad.materialdialogs.input.input
 import com.arellomobile.mvp.MvpView
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -14,9 +15,8 @@ import io.someapp.wisecontlol.data.tasks.TaskEntity
 import io.someapp.wisecontlol.di.FragmentScope
 import io.someapp.wisecontlol.ui.core.BaseFragment
 import io.someapp.wisecontlol.ui.core.withParam
-import io.someapp.wisecontlol.ui.utils.datedialog.dateTimePicker
-import kotlinx.android.synthetic.main.screen_taskinfo_view_edit.*
 import io.someapp.wisecontlol.ui.utils.asString
+import kotlinx.android.synthetic.main.screen_taskinfo_view_edit.*
 import ru.terrakok.cicerone.android.support.SupportAppScreen
 
 
@@ -41,7 +41,7 @@ class TaskInfoFragment : BaseFragment<TaskInfoPresenter>(), TaskInfoView {
 
     private fun showEditStareDateDialog() {
         MaterialDialog(context!!).show {
-            dateTimePicker { dialog, dateTime ->  }
+            dateTimePicker { dialog, dateTime -> }
             positiveButton(R.string.submit)
         }
 
@@ -59,7 +59,7 @@ class TaskInfoFragment : BaseFragment<TaskInfoPresenter>(), TaskInfoView {
     }
 
     override fun updateUi(currentTask: TaskEntity) {
-        task_title.text = currentTask.title
+        task_title.text = currentTask.title.ifBlank { getString(R.string.new_task_hint) }
         task_content.setText(currentTask.description)
     }
 }

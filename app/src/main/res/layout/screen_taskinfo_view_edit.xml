@@ -83,6 +83,7 @@
                 tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis metus imperdiet, placerat libero quis, viverra orci. Pellentesque eu libero eget massa luctus eleifend a ac libero. Nullam vel interdum sem. Maecenas ultricies augue dapibus sem aliquam, semper tempus mi malesuada."
                 android:textColor="@color/color_black"
                 android:textSize="@dimen/text_font_size"
+                android:hint="@string/task_content_hint"
                 app:layout_constraintTop_toBottomOf="@+id/task_title"/>
 
 

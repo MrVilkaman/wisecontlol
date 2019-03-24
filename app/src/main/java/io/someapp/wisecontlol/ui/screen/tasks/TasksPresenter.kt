@@ -15,7 +15,8 @@ import javax.inject.Inject
 @InjectViewState
 @FragmentScope
 class TasksPresenter @Inject constructor(
-        private val db: WiseDatabase
+    private val param: TasksScreenParam,
+    private val db: WiseDatabase
 ) : BasePresenter<TasksView>() {
 
     override fun onFirstViewAttach() {

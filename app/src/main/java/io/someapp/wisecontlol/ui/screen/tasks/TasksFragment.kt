@@ -7,10 +7,12 @@ import com.arellomobile.mvp.MvpView
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import io.someapp.wisecontlol.R
+import io.someapp.wisecontlol.data.category.CategoryEntity
 import io.someapp.wisecontlol.data.tasks.TaskEntity
 import io.someapp.wisecontlol.di.FragmentScope
 import io.someapp.wisecontlol.ui.core.BaseFragment
 import io.someapp.wisecontlol.ui.core.ItemListener
+import io.someapp.wisecontlol.ui.core.withParam
 import kotlinx.android.synthetic.main.screen_tasks_view.*
 import ru.terrakok.cicerone.android.support.SupportAppScreen
 import javax.inject.Inject
@@ -51,10 +53,20 @@ class TasksFragment : BaseFragment<TasksPresenter>(), TasksView {
     }
 }
 
-object TasksScreen : SupportAppScreen() {
-    override fun getFragment() = TasksFragment()
+class TasksScreen(private val categoryEntity: CategoryEntity? = null) : SupportAppScreen() {
+    companion object {
+        const val KEY_CATEGORY_ID = "KEY_CATEGORY_ID"
+    }
+
+    override fun getFragment() = TasksFragment().withParam {
+        categoryEntity?.let { putLong(KEY_CATEGORY_ID, it.id) }
+    }
 }
 
 interface TasksView : MvpView {
     fun bindItems(list: List<TaskEntity>)
 }
+
+data class TasksScreenParam(
+    private val categoryId: Long? = null
+)

@@ -4,7 +4,16 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 
-@Entity
+@Entity(
+//    foreignKeys = [
+//        ForeignKey(
+//            entity = CategoryEntity::class,
+//            parentColumns = ["id"],
+//            childColumns = ["categoryId"]
+//        )
+//    ]
+
+)
 class TaskEntity {
 
     @PrimaryKey(autoGenerate = true)
@@ -13,5 +22,7 @@ class TaskEntity {
     var title: String = ""
 
     var description: String = ""
+
+//    var categoryId: Int = 0
 
 }
