@@ -9,6 +9,7 @@ import io.someapp.wisecontlol.ui.screen.taskinfo.TaskInfoScreen
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.*
 import javax.inject.Inject
 
 
@@ -19,10 +20,7 @@ class TasksPresenter @Inject constructor(
     private val taskInteractor: TaskInteractor
 ) : BasePresenter<TasksView>() {
 
-
-    override fun attachView(view: TasksView?) {
-        super.attachView(view)
-
+    private fun updateList() {
         launch {
             val list = withContext(Dispatchers.IO) {
                 with(param) {
@@ -31,10 +29,15 @@ class TasksPresenter @Inject constructor(
                     } else {
                         taskInteractor.getAllInCategory(categoryId)
                     }
-                }
+                }.sortedWith(compareBy({ it.task.isDone }, { it.task.startDate }))
             }
             viewState.bindItems(list)
         }
+    }
+
+    override fun attachView(view: TasksView?) {
+        super.attachView(view)
+        updateList()
     }
 
     fun onClickTask(value: TaskFullEntity) {
@@ -44,6 +47,11 @@ class TasksPresenter @Inject constructor(
     fun onCheckedTask(id: Long, newState: Boolean) {
         launch {
             taskInteractor.updateTaskState(id, newState)
+            updateList()
         }
     }
+
+    private val currentDate = Date()
+
+    fun beforeDate(startDate: Date?): Boolean = startDate?.before(currentDate) == true
 }

@@ -66,7 +66,8 @@ abstract class BaseFragment<P : BasePresenter<*>> : MvpAppCompatFragment(), Back
 
 inline fun <F : Fragment> F.withParam(block: Bundle.() -> Unit): F {
     return this.apply {
-        this.arguments = Bundle().apply {
+        val arguments = this.arguments ?: Bundle()
+        this.arguments = arguments.apply {
             block.invoke(this)
         }
     }

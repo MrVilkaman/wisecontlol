@@ -17,6 +17,7 @@ interface TaskInteractor {
     suspend fun createNew(): TaskFullEntity
     suspend fun insert(task: TaskEntity)
     suspend fun update(task: TaskEntity)
+    suspend fun delete(task: TaskEntity)
 
 }
 
@@ -69,5 +70,9 @@ class TaskInteractorImpl @Inject constructor(
 
     override suspend fun update(task: TaskEntity)= withIO {
         taskDao.update(task)
+    }
+
+    override suspend fun delete(task: TaskEntity) = withIO {
+        taskDao.delete(task)
     }
 }

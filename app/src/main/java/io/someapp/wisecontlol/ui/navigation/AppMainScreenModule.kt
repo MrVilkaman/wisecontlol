@@ -4,8 +4,7 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import io.someapp.wisecontlol.di.FragmentScope
 import io.someapp.wisecontlol.ui.screen.main.MainFragment
-import io.someapp.wisecontlol.ui.screen.taskinfo.TaskInfoFragment
-import io.someapp.wisecontlol.ui.screen.taskinfo.TaskInfoModule
+import io.someapp.wisecontlol.ui.screen.taskinfo.*
 import io.someapp.wisecontlol.ui.screen.tasks.TasksFragment
 import io.someapp.wisecontlol.ui.screen.tasks.TasksModule
 
@@ -21,6 +20,10 @@ interface AppMainScreenModule {
     fun provideTasksFragment(): TasksFragment
 
     @FragmentScope
-    @ContributesAndroidInjector(modules = [TaskInfoModule::class])
+    @ContributesAndroidInjector(modules = [TaskInfoEditModule::class, IdModule::class])
+    fun provideTaskInfoEditFragment(): TaskInfoFragmentEdit
+
+    @FragmentScope
+    @ContributesAndroidInjector(modules = [TaskInfoModule::class, IdModule::class])
     fun provideTaskInfoFragment(): TaskInfoFragment
 }

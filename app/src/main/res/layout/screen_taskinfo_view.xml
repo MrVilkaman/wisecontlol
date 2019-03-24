@@ -14,9 +14,10 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
+        android:id="@+id/task_title"
         style="@style/ToolbarTitle"
-        android:text="Задача №1"
-        tools:ignore="MissingConstraints"/>
+        tools:ignore="MissingConstraints"
+        tools:text="Задача №1"/>
 
     <ImageButton
         android:id="@+id/close"
@@ -27,6 +28,17 @@
         android:src="@drawable/ic_back"
         app:layout_constraintBottom_toBottomOf="@+id/top"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/top"/>
+
+    <ImageButton
+        android:id="@+id/edit"
+        android:layout_width="48dp"
+        android:layout_height="0dp"
+        android:background="@null"
+        android:padding="16dp"
+        android:src="@android:drawable/ic_menu_edit"
+        app:layout_constraintBottom_toBottomOf="@+id/top"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/top"/>
 
     <androidx.core.widget.NestedScrollView
@@ -45,25 +57,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis metus imperdiet, placerat libero quis, viverra orci. Pellentesque eu libero eget massa luctus eleifend a ac libero. Nullam vel interdum sem. Maecenas ultricies augue dapibus sem aliquam, semper tempus mi malesuada."
+                tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis metus imperdiet, placerat libero quis, viverra orci. Pellentesque eu libero eget massa luctus eleifend a ac libero. Nullam vel interdum sem. Maecenas ultricies augue dapibus sem aliquam, semper tempus mi malesuada."
                 android:textColor="@color/color_black"
                 android:textSize="@dimen/text_font_size"/>
 
 
             <TextView
+                android:id="@+id/category"
                 style="@style/HintText"
-                android:paddingLeft="16dp"
                 android:paddingBottom="16dp"
-                android:text="Категория: Разное"
+                android:paddingLeft="16dp"
+                tools:text="Категория: Разное"
                 android:textSize="@dimen/text_font_size"
                 app:layout_constraintTop_toBottomOf="@+id/task_content"/>
 
             <TextView
+                android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|left"
                 android:paddingLeft="16dp"
-                android:text="Начало 12 марта в 17:00"
+                tools:text="Начало 12 марта в 17:00"
                 android:textSize="@dimen/text_font_size"/>
 
         </LinearLayout>

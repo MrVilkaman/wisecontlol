@@ -7,7 +7,7 @@ import io.someapp.wisecontlol.data.category.CategoryEntity
 import io.someapp.wisecontlol.di.FragmentScope
 import io.someapp.wisecontlol.domain.CategoryInteractor
 import io.someapp.wisecontlol.ui.core.BasePresenter
-import io.someapp.wisecontlol.ui.screen.taskinfo.TaskInfoScreen
+import io.someapp.wisecontlol.ui.screen.taskinfo.TaskInfoScreenEdit
 import io.someapp.wisecontlol.ui.screen.tasks.TasksScreen
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -23,7 +23,7 @@ class MainPresenter @Inject constructor(
     }
 
     fun onClickAddTask() {
-        router.navigateTo(TaskInfoScreen())
+        router.navigateTo(TaskInfoScreenEdit())
     }
 
     fun onClickCategory(value: CategoryEntity){

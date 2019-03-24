@@ -17,22 +17,28 @@ import javax.inject.Inject
 @FragmentScope
 class TaskInfoPresenter @Inject constructor(
     @SomeId private val taskId: Long?,
+    private val editMode: Boolean,
     private val categoryInteractor: CategoryInteractor,
     private val taskInteractor: TaskInteractor
 ) : BasePresenter<TaskInfoView>() {
 
     private lateinit var currentTask: TaskFullEntity
 
-    override fun onFirstViewAttach() {
-        super.onFirstViewAttach()
-
+    override fun attachView(view: TaskInfoView) {
+        super.attachView(view)
         launch {
-
-            currentTask = if (taskId == null) {
-                taskInteractor.createNew()
+            if (editMode) {
+                if (::currentTask.isInitialized.not()) {
+                    currentTask = if (taskId == null) {
+                        taskInteractor.createNew()
+                    } else {
+                        taskInteractor.getTask(taskId)
+                    }
+                }
             } else {
-                taskInteractor.getTask(taskId)
+                currentTask = taskInteractor.getTask(taskId!!)
             }
+
             viewState.updateUi(currentTask)
         }
     }
@@ -76,5 +82,19 @@ class TaskInfoPresenter @Inject constructor(
     fun updateStartDate(time: Date) {
         currentTask.task.startDate = time
         viewState.updateUi(currentTask)
+    }
+
+    fun onClickEdit() {
+        router.navigateTo(TaskInfoScreenEdit(taskId))
+    }
+
+    fun onClickDelete() {
+        launch {
+            taskInteractor.delete(currentTask.task)
+            router.exit()
+        }
+    }
+
+    fun onClickSend() {
     }
 }
