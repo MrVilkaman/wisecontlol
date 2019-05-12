@@ -17,6 +17,7 @@ import io.someapp.wisecontlol.ui.core.ItemListener
 import io.someapp.wisecontlol.ui.core.withParam
 import kotlinx.android.synthetic.main.screen_tasks_view.*
 import ru.terrakok.cicerone.android.support.SupportAppScreen
+import java.util.*
 import javax.inject.Inject
 
 
@@ -55,13 +56,21 @@ class TasksFragment : BaseFragment<TasksPresenter>(), TasksView {
     }
 }
 
-class TasksScreen(private val categoryEntity: CategoryEntity? = null) : SupportAppScreen() {
+class TasksScreen(
+    private val categoryEntity: CategoryEntity? = null,
+    private val day: Date? = null,
+    private val withoutDate: Boolean? = null
+) : SupportAppScreen() {
     companion object {
         const val KEY_CATEGORY_ID = "KEY_CATEGORY_ID"
+        const val KEY_DATE = "KEY_DATE"
+        const val KEY_WITHOUT_DATE = "KEY_WITHOUT_DATE"
     }
 
     override fun getFragment() = TasksFragment().withParam {
         categoryEntity?.let { putLong(KEY_CATEGORY_ID, it.id) }
+        day?.let { putLong(KEY_DATE, it.time) }
+        withoutDate?.let { putBoolean(KEY_WITHOUT_DATE, withoutDate) }
     }
 }
 
@@ -71,5 +80,7 @@ interface TasksView : MvpView {
 }
 
 data class TasksScreenParam(
-    val categoryId: Long? = null
+    val categoryId: Long? = null,
+    val day: Date? = null,
+    val withoutDate: Boolean? = null
 )

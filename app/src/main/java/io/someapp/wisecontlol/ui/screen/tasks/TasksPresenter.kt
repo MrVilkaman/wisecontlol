@@ -24,11 +24,14 @@ class TasksPresenter @Inject constructor(
         launch {
             val list = withContext(Dispatchers.IO) {
                 with(param) {
-                    if (categoryId == null) {
-                        taskInteractor.getAll()
-                    } else {
-                        taskInteractor.getAllInCategory(categoryId)
+                    return@with when {
+                        categoryId != null -> taskInteractor.getAllInCategory(categoryId)
+                        day != null -> taskInteractor.getAllWithDate(day)
+                        withoutDate == true -> taskInteractor.getAllWithDate(null)
+
+                        else -> taskInteractor.getAll()
                     }
+
                 }.sortedWith(compareBy({ it.task.isDone }, { it.task.startDate }))
             }
             viewState.bindItems(list)

@@ -7,12 +7,14 @@ import io.someapp.wisecontlol.data.db.category.CategoryDao
 import io.someapp.wisecontlol.data.tasks.TaskEntity
 import io.someapp.wisecontlol.data.tasks.TaskFullEntity
 import io.someapp.wisecontlol.ui.utils.withIO
+import java.util.*
 import javax.inject.Inject
 
 interface TaskInteractor {
     suspend fun getTask(taskId: Long): TaskFullEntity
     suspend fun getAll(): List<TaskFullEntity>
     suspend fun getAllInCategory(categoryId: Long): List<TaskFullEntity>
+    suspend fun getAllWithDate(date: Date?): List<TaskFullEntity>
     suspend fun updateTaskState(id: Long, newState: Boolean)
     suspend fun createNew(): TaskFullEntity
     suspend fun insert(task: TaskEntity)
@@ -60,6 +62,21 @@ class TaskInteractorImpl @Inject constructor(
         }
     }
 
+    override suspend fun getAllWithDate(date: Date?): List<TaskFullEntity> {
+        return taskDao.getAll()
+            .filter {
+                if (date != null) {
+                    val startDate = it.startDate
+                    startDate != null && startDate.before(date)
+                } else {
+                    it.startDate == null
+                }
+            }
+            .map {
+                TaskFullEntity(it, loadCategory(it.id))
+            }
+    }
+
     override suspend fun updateTaskState(id: Long, newState: Boolean) = withIO {
         taskDao.updateTaskState(id, newState)
     }
@@ -68,7 +85,7 @@ class TaskInteractorImpl @Inject constructor(
         taskDao.insert(task)
     }
 
-    override suspend fun update(task: TaskEntity)= withIO {
+    override suspend fun update(task: TaskEntity) = withIO {
         taskDao.update(task)
     }
 

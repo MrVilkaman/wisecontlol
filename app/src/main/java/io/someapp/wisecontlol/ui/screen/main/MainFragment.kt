@@ -50,6 +50,15 @@ class MainFragment : BaseFragment<MainPresenter>(), MainView {
         categories.setOnClickListener {
             presenter.onClickCategories()
         }
+
+        tasks_of_day.setOnClickListener {
+            presenter.onClickTaskOfDays()
+        }
+
+        chaos.setOnClickListener {
+            presenter.onClickChaos()
+        }
+
         add_category.setOnClickListener {
             showAddCategoryDialog()
         }
@@ -72,8 +81,8 @@ class MainFragment : BaseFragment<MainPresenter>(), MainView {
         val currentDB = File(data, currentDBPath)
         val backupDB = File(sd, backupDBPath)
 
-        FileInputStream(currentDB).channel.use { source->
-            FileOutputStream(backupDB).channel.use { destination->
+        FileInputStream(currentDB).channel.use { source ->
+            FileOutputStream(backupDB).channel.use { destination ->
                 destination.transferFrom(source, 0, source.size())
                 showToast("DB Exported!")
 

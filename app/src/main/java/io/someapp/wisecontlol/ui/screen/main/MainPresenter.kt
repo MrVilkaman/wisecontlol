@@ -9,6 +9,7 @@ import io.someapp.wisecontlol.domain.CategoryInteractor
 import io.someapp.wisecontlol.ui.core.BasePresenter
 import io.someapp.wisecontlol.ui.screen.taskinfo.TaskInfoScreenEdit
 import io.someapp.wisecontlol.ui.screen.tasks.TasksScreen
+import io.someapp.wisecontlol.ui.utils.Date.Companion.todayNight
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -26,11 +27,21 @@ class MainPresenter @Inject constructor(
         router.navigateTo(TaskInfoScreenEdit())
     }
 
-    fun onClickCategory(value: CategoryEntity){
+    fun onClickCategory(value: CategoryEntity) {
         router.navigateTo(TasksScreen(value))
     }
 
-    fun onClickCategories() = launch{
+    fun onClickTaskOfDays() {
+        val tasksScreen = TasksScreen(day = todayNight())
+        router.navigateTo(tasksScreen)
+    }
+
+    fun onClickChaos() {
+        val tasksScreen = TasksScreen(withoutDate = true)
+        router.navigateTo(tasksScreen)
+    }
+
+    fun onClickCategories() = launch {
         val list = categoryInteractor.getAllCategories()
         viewState.showCategoriesChooseDialog(list)
     }

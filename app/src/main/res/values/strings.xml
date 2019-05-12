@@ -21,5 +21,7 @@
 
     <string name="send_success">Отправлено успешно!</string>
     <string name="send_error">Не удалось отпраить sms =( </string>
+    <string name="tasks_of_day">План дня</string>
+    <string name="chaos">Хаос</string>
 
 </resources>

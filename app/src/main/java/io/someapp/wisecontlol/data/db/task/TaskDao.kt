@@ -10,7 +10,7 @@ interface TaskDao {
     @Query("SELECT * FROM TaskEntity")
     fun getAll(): List<TaskEntity>
 
-    @Query("SELECT * FROM TaskEntity WHERE categoryId = :categoryId")
+    @Query("SELECT * FROM TaskEntity WHERE categoryId = :categoryId or categoryId = null")
     fun getAllInCategory(categoryId: Long): List<TaskEntity>
 
     @Query("SELECT * FROM TaskEntity WHERE id = :id")
