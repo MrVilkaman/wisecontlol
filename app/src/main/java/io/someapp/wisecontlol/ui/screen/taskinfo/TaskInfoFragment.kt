@@ -1,6 +1,7 @@
 package io.someapp.wisecontlol.ui.screen.taskinfo
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -9,6 +10,8 @@ import io.someapp.wisecontlol.R
 import io.someapp.wisecontlol.data.category.CategoryEntity
 import io.someapp.wisecontlol.data.tasks.TaskFullEntity
 import io.someapp.wisecontlol.di.FragmentScope
+import io.someapp.wisecontlol.domain.RememberUtils
+import io.someapp.wisecontlol.domain.RememberUtils.getRememberDate
 import io.someapp.wisecontlol.ui.core.BaseFragment
 import kotlinx.android.synthetic.main.screen_taskinfo_view.*
 import java.text.SimpleDateFormat
@@ -51,6 +54,15 @@ class TaskInfoFragment : BaseFragment<TaskInfoPresenter>(), TaskInfoView {
 
         val date: CharSequence = task.startDate?.let { dateFormat.format(it) } ?: ""
         textView2.text = getString(R.string.start_date, date)
+        val remembers = task.remembers
+        if (remembers != null) {
+            remember.text = RememberUtils.getText(context!!, remembers)
+        } else {
+            remember.text = null
+        }
+
+        val rememberDate = getRememberDate(currentTask.task)
+        Log.d("qwe", rememberDate?.toString())
     }
 
     override fun showTitleError() {

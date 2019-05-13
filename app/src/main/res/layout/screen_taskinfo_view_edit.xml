@@ -130,6 +130,29 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/category_selector"/>
 
+
+            <TextView
+                android:id="@+id/remember_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Начало 12 марта в 17:00 Начало 12 марта в 17:00"
+                android:textSize="@dimen/text_font_size"
+                app:layout_constraintBottom_toBottomOf="@+id/remember_dialog"
+                app:layout_constraintRight_toLeftOf="@+id/remember_dialog"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/remember_dialog"/>
+
+            <TextView
+                android:id="@+id/remember_dialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:text="@string/edit"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_font_size"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView2"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>

@@ -2,10 +2,12 @@ package io.someapp.wisecontlol.ui.screen.taskinfo
 
 import com.arellomobile.mvp.InjectViewState
 import io.someapp.wisecontlol.data.category.CategoryEntity
+import io.someapp.wisecontlol.data.tasks.RememberEntity
 import io.someapp.wisecontlol.data.tasks.TaskFullEntity
 import io.someapp.wisecontlol.di.FragmentScope
 import io.someapp.wisecontlol.di.SomeId
 import io.someapp.wisecontlol.domain.CategoryInteractor
+import io.someapp.wisecontlol.domain.NotificationsSettingsManager
 import io.someapp.wisecontlol.domain.TaskInteractor
 import io.someapp.wisecontlol.ui.core.BasePresenter
 import io.someapp.wisecontlol.ui.screen.smssender.SmsSenderScreen
@@ -20,7 +22,8 @@ class TaskInfoPresenter @Inject constructor(
     @SomeId private val taskId: Long?,
     private val editMode: Boolean,
     private val categoryInteractor: CategoryInteractor,
-    private val taskInteractor: TaskInteractor
+    private val taskInteractor: TaskInteractor,
+    private val notif: NotificationsSettingsManager
 ) : BasePresenter<TaskInfoView>() {
 
     private lateinit var currentTask: TaskFullEntity
@@ -69,6 +72,9 @@ class TaskInfoPresenter @Inject constructor(
                 taskInteractor.update(currentTask.task)
             }
             router.exit()
+            if (currentTask.task.remembers != null) {
+                notif.restartNotifications()
+            }
         }
     }
 
@@ -99,4 +105,16 @@ class TaskInfoPresenter @Inject constructor(
     fun onClickSend() {
         router.navigateTo(SmsSenderScreen(taskId!!))
     }
+
+    fun updateRemember(item: RememberChoose, date: Date? = null) = launch {
+        currentTask.task.remembers = RememberEntity(item.id, date)
+        viewState.updateUi(currentTask)
+    }
+
+    fun clearRemember() = launch {
+        currentTask.task.remembers = null
+        viewState.updateUi(currentTask)
+    }
+
+    fun getStart(): Date? =currentTask.task.startDate
 }

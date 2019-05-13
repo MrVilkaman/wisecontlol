@@ -6,6 +6,7 @@ import androidx.room.TypeConverters
 import io.someapp.wisecontlol.data.category.CategoryEntity
 import io.someapp.wisecontlol.data.db.category.CategoryDao.Companion.EMPTY_CATEGORY
 import io.someapp.wisecontlol.data.db.convertor.DateConverter
+import io.someapp.wisecontlol.data.db.convertor.RememberEntityConverter
 import java.util.*
 
 
@@ -25,8 +26,10 @@ class TaskEntity {
     var startDate: Date? = null
 
     var categoryId: Long? = EMPTY_CATEGORY
-}
 
+    @TypeConverters(RememberEntityConverter::class)
+    var remembers: RememberEntity? = null
+}
 
 data class TaskFullEntity(
     var task: TaskEntity,

@@ -34,7 +34,7 @@ class App : Application(), HasActivityInjector {
 
     override fun activityInjector(): AndroidInjector<Activity> = dispatchingActivityInjector
 
-    private lateinit var appComponent: AppComponent
+    lateinit var appComponent: AppComponent
 
 
     override fun onCreate() {
@@ -45,6 +45,7 @@ class App : Application(), HasActivityInjector {
         appComponent
             .inject(this)
 
+        appComponent.notificationsSettingsManager().createChannels()
 
         initDB()
     }

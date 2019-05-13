@@ -27,4 +27,8 @@ interface TaskDao {
 
     @Delete
     fun delete(employee: TaskEntity)
+
+    @Query("SELECT * FROM TaskEntity WHERE remembers != null")
+    fun getAllWithRemember(): List<TaskEntity>
+
 }

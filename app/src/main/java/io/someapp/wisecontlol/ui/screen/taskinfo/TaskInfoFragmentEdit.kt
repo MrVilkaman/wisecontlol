@@ -7,6 +7,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.datetime.dateTimePicker
 import com.afollestad.materialdialogs.input.input
 import com.afollestad.materialdialogs.list.customListAdapter
+import com.afollestad.materialdialogs.list.listItemsSingleChoice
 import com.arellomobile.mvp.MvpView
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
@@ -17,6 +18,7 @@ import io.someapp.wisecontlol.R
 import io.someapp.wisecontlol.data.category.CategoryEntity
 import io.someapp.wisecontlol.data.tasks.TaskFullEntity
 import io.someapp.wisecontlol.di.FragmentScope
+import io.someapp.wisecontlol.domain.RememberUtils
 import io.someapp.wisecontlol.ui.core.BaseFragment
 import io.someapp.wisecontlol.ui.core.ItemListener
 import io.someapp.wisecontlol.ui.core.withParam
@@ -25,6 +27,7 @@ import io.someapp.wisecontlol.ui.utils.asString
 import kotlinx.android.synthetic.main.screen_taskinfo_view_edit.*
 import ru.terrakok.cicerone.android.support.SupportAppScreen
 import java.text.SimpleDateFormat
+import java.util.*
 
 
 @FragmentScope
@@ -42,6 +45,7 @@ class TaskInfoFragmentEdit : BaseFragment<TaskInfoPresenter>(), TaskInfoView {
 
         name_edit.setOnClickListener { showEditTitleDialog() }
         edit_start_date_dialog.setOnClickListener { showEditStareDateDialog() }
+        remember_dialog.setOnClickListener { showEditRememberDialog() }
         task_save.setOnClickListener { presenter.save(task_content.asString()) }
         close.setOnClickListener { presenter.close() }
 
@@ -51,8 +55,56 @@ class TaskInfoFragmentEdit : BaseFragment<TaskInfoPresenter>(), TaskInfoView {
     }
 
     private fun showEditStareDateDialog() {
+        val min = Calendar.getInstance().apply { time = Date() }
+        val current = presenter.getStart()?.let {
+            Calendar.getInstance().apply { time = it }
+        }
         MaterialDialog(context!!).show {
-            dateTimePicker { dialog, dateTime -> presenter.updateStartDate(dateTime.time) }
+            dateTimePicker(
+                minDateTime = min,
+                currentDateTime = current,
+                show24HoursView = true
+            ) { dialog, dateTime -> presenter.updateStartDate(dateTime.time) }
+            positiveButton(R.string.submit)
+        }
+    }
+
+
+    private fun showEditRememberDialog() {
+
+        val items = RememberUtils.rememberChooseVariants()
+        val titls = items.map { it.text }
+
+        MaterialDialog(context!!).show {
+            listItemsSingleChoice(
+                items = titls,
+                waitForPositiveButton = false
+            ) { dialog, index, text ->
+                when (items.size) {
+                    items.size - 1 -> showRememberTimeDialog()
+                    else -> presenter.updateRemember(items[index])
+                }
+                dialog.dismiss()
+            }
+            negativeButton(R.string.delete) {
+                presenter.clearRemember()
+            }
+        }
+    }
+
+    private fun showRememberTimeDialog() {
+        val min = presenter.getStart()?.let {
+            Calendar.getInstance().apply { time = it }
+        }
+
+        MaterialDialog(context!!).show {
+            dateTimePicker(
+                minDateTime = min,
+                currentDateTime = min,
+                show24HoursView = true
+            ) { dialog, dateTime ->
+                presenter.updateRemember(RememberUtils.getTimeItem(), dateTime.time)
+            }
             positiveButton(R.string.submit)
         }
     }
@@ -85,6 +137,7 @@ class TaskInfoFragmentEdit : BaseFragment<TaskInfoPresenter>(), TaskInfoView {
     }
 
     private val dateFormat = SimpleDateFormat("dd.MM.yyyy HH:mm")
+
     override fun updateUi(currentTask: TaskFullEntity) {
         val task = currentTask.task
         task_title.text = task.title.ifBlank { getString(R.string.new_task_hint) }
@@ -94,6 +147,21 @@ class TaskInfoFragmentEdit : BaseFragment<TaskInfoPresenter>(), TaskInfoView {
         val date: CharSequence = task.startDate?.let { dateFormat.format(it) } ?: ""
         textView2.text = getString(R.string.start_date, date)
 
+        if (task.startDate == null) {
+            remember_edit.visibility = View.GONE
+            remember_dialog.visibility = View.GONE
+            return
+        }
+        remember_edit.visibility = View.VISIBLE
+        remember_dialog.visibility = View.VISIBLE
+
+        val remembers = task.remembers
+        if (remembers != null) {
+
+            remember_edit.text = RememberUtils.getText(context!!, remembers)
+        } else {
+            remember_edit.setText(R.string.remember_null)
+        }
     }
 
     override fun showTitleError() {

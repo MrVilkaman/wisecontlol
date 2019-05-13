@@ -6,6 +6,7 @@ import io.someapp.wisecontlol.R
 import io.someapp.wisecontlol.data.category.CategoryEntity
 import io.someapp.wisecontlol.di.FragmentScope
 import io.someapp.wisecontlol.domain.CategoryInteractor
+import io.someapp.wisecontlol.domain.NotificationsSettingsManager
 import io.someapp.wisecontlol.ui.core.BasePresenter
 import io.someapp.wisecontlol.ui.screen.taskinfo.TaskInfoScreenEdit
 import io.someapp.wisecontlol.ui.screen.tasks.TasksScreen
@@ -17,8 +18,15 @@ import javax.inject.Inject
 @InjectViewState
 @FragmentScope
 class MainPresenter @Inject constructor(
-    private val categoryInteractor: CategoryInteractor
+    private val categoryInteractor: CategoryInteractor,
+    private val notif: NotificationsSettingsManager
 ) : BasePresenter<MainView>() {
+
+    override fun onFirstViewAttach() {
+        super.onFirstViewAttach()
+        notif.restartNotifications()
+    }
+
     fun onClickTasks() {
         router.navigateTo(TasksScreen())
     }

@@ -18,10 +18,14 @@
     <string name="empty_category">Без категории</string>
     <string name="task_title_request">Нужно дать название задаче!</string>
     <string name="start_date">Начало: %s</string>
+    <string name="remember">Уведомление: %s</string>
+    <string name="remember_temp">%s до начала</string>
 
     <string name="send_success">Отправлено успешно!</string>
     <string name="send_error">Не удалось отпраить sms =( </string>
     <string name="tasks_of_day">План дня</string>
     <string name="chaos">Хаос</string>
+    <string name="remember_null">Уведомление</string>
+    <string name="delete">Удалить</string>
 
 </resources>
