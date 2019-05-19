@@ -43,7 +43,7 @@ class TaskInfoFragmentEdit : BaseFragment<TaskInfoPresenter>(), TaskInfoView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        name_edit.setOnClickListener { showEditTitleDialog() }
+        name_edit.setOnClickListener { presenter.showEditTitleDialog() }
         edit_start_date_dialog.setOnClickListener { showEditStareDateDialog() }
         remember_dialog.setOnClickListener { showEditRememberDialog() }
         task_save.setOnClickListener { presenter.save(task_content.asString()) }
@@ -126,8 +126,7 @@ class TaskInfoFragmentEdit : BaseFragment<TaskInfoPresenter>(), TaskInfoView {
         }
     }
 
-    private fun showEditTitleDialog() {
-        val prefill = task_title.text
+    override fun showEditTitleDialog(prefill: String) {
         MaterialDialog(context!!).show {
             input(hintRes = R.string.edit_title_hint, prefill = prefill) { _, text ->
                 presenter.updateTitle(text.toString())
@@ -141,7 +140,11 @@ class TaskInfoFragmentEdit : BaseFragment<TaskInfoPresenter>(), TaskInfoView {
     override fun updateUi(currentTask: TaskFullEntity) {
         val task = currentTask.task
         task_title.text = task.title.ifBlank { getString(R.string.new_task_hint) }
-        task_content.setText(task.description)
+
+        if (task_content.text.isEmpty()) {
+            task_content.setText(task.description)
+        }
+
         category_selector.setText(currentTask.category?.title)
 
         val date: CharSequence = task.startDate?.let { dateFormat.format(it) } ?: ""
@@ -194,4 +197,6 @@ interface TaskInfoView : MvpView {
     fun showCategoriesChooseDialog(list: List<CategoryEntity>)
 
     fun showTitleError()
+    @StateStrategyType(value = SkipStrategy::class)
+    fun showEditTitleDialog(prefill: String)
 }

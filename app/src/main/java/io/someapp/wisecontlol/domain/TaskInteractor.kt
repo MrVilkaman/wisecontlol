@@ -52,13 +52,13 @@ class TaskInteractorImpl @Inject constructor(
 
     override suspend fun getAll(): List<TaskFullEntity> = withIO {
         taskDao.getAll().map {
-            TaskFullEntity(it, loadCategory(it.id))
+            TaskFullEntity(it, loadCategory(it.categoryId))
         }
     }
 
     override suspend fun getAllInCategory(categoryId: Long): List<TaskFullEntity> {
         return taskDao.getAllInCategory(categoryId).map {
-            TaskFullEntity(it, loadCategory(it.id))
+            TaskFullEntity(it, loadCategory(it.categoryId))
         }
     }
 
@@ -73,7 +73,7 @@ class TaskInteractorImpl @Inject constructor(
                 }
             }
             .map {
-                TaskFullEntity(it, loadCategory(it.id))
+                TaskFullEntity(it, loadCategory(it.categoryId))
             }
     }
 

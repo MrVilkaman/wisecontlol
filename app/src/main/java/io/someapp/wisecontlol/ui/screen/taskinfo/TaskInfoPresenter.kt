@@ -116,5 +116,9 @@ class TaskInfoPresenter @Inject constructor(
         viewState.updateUi(currentTask)
     }
 
-    fun getStart(): Date? =currentTask.task.startDate
+    fun getStart(): Date? = currentTask.task.startDate
+
+    fun showEditTitleDialog() {
+        viewState.showEditTitleDialog(currentTask.task.title)
+    }
 }

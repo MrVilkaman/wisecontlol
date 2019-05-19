@@ -53,6 +53,6 @@ object RememberUtils {
         }
 
         val startDate = task.startDate ?: return null
-        return Date(startDate.time + TimeUnit.MINUTES.toMillis(getById(rem.id).minuted))
+        return Date(startDate.time - TimeUnit.MINUTES.toMillis(getById(rem.id).minuted))
     }
 }

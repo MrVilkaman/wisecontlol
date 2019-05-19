@@ -23,7 +23,7 @@
         android:id="@+id/tasks_of_day"
         style="@style/MainButtons"
         android:text="@string/tasks_of_day"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/categories"
         app:layout_constraintEnd_toStartOf="@+id/chaos"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,31 +35,35 @@
         android:id="@+id/chaos"
         style="@style/MainButtons"
         android:text="@string/chaos"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/tasks"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/tasks_of_day"
         app:layout_constraintTop_toBottomOf="@+id/top"
-        app:layout_constraintVertical_bias="0.15"
         tools:ignore="MissingConstraints"/>
 
 
     <Button
         android:id="@+id/tasks"
         style="@style/MainButtons"
+        android:layout_marginBottom="8dp"
         android:text="@string/tasks"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/categories"
         app:layout_constraintTop_toBottomOf="@+id/chaos"/>
-
 
     <Button
         android:id="@+id/categories"
         style="@style/MainButtons"
+        android:layout_marginBottom="8dp"
         android:text="@string/categories"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tasks"/>
+        app:layout_constraintBottom_toTopOf="@+id/bottom"
+        app:layout_constraintEnd_toStartOf="@+id/tasks"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tasks_of_day"/>
 
 
     <FrameLayout
@@ -103,7 +107,6 @@
         android:background="@null"
         android:padding="16dp"
         android:src="@android:drawable/ic_dialog_email"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/top"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/top"/>
